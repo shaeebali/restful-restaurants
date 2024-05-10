@@ -114,7 +114,27 @@ router.delete("/:id", (req, res) => {
 /**
  * Feature 10: Updating your comment of a starred restaurant.
  */
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const { newName } = req.body;
+  const { newComment } = req.body;
 
+  // Find the starred restaurant with the matching id.
+  const starredRestaurant = STARRED_RESTAURANTS.find(
+    (starredRestaurant) => starredRestaurant.id === id
+  );
 
+  // If the starred restaurant doesn't exist, let the client know.
+  if (!starredRestaurant) {
+    res.sendStatus(404);
+    return;
+  }
+
+  // Update the starred restaurant with the new name and comment.
+  starredRestaurant.name = newName;
+  starredRestaurant.comment = newComment;
+
+  res.sendStatus(200);
+});  
 
 module.exports = router;
