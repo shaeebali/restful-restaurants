@@ -61,6 +61,7 @@ router.get("/:id", (req, res) => {
     res.sendStatus(404);
     return;
   }
+  res.sendStatus(200);
   res.json(starredRestaurant);
 });  
 
@@ -83,6 +84,7 @@ router.post("/", (req, res) => {
   // Add the new starred restaurant to the list of starred restaurants.
   STARRED_RESTAURANTS.push(newStarredRestaurant);
 
+  res.sendStatus(204);
   res.json(newStarredRestaurant);
 });  
 

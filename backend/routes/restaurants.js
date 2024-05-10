@@ -58,6 +58,7 @@ router.post("/", (req, res) => {
   // Add the new restaurant to the list of restaurants.
   ALL_RESTAURANTS.push(newRestaurant);
 
+  // Return the new restaurant to the client.
   res.json(newRestaurant);
 });
 
