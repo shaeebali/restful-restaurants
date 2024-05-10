@@ -1,5 +1,6 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+const { default: StarredRestaurant } = require("../../frontend/src/components/starredRestaurants/StarredRestaurant");
 const router = express.Router();
 const ALL_RESTAURANTS = require("./restaurants").restaurants;
 
@@ -92,7 +93,23 @@ router.post("/", (req, res) => {
 /**
  * Feature 9: Deleting from your list of starred restaurants.
  */
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
 
+  // Find the starred restaurant with the matching id.
+  const starredRestaurant = STARRED_RESTAURANTS.filter(
+    (starredRestaurant) => starredRestaurant.id === id
+  );
+
+  // If the starred restaurant doesn't exist, let the client know.
+  if (STARRED_RESTAURANTS.length === StarredRestaurant.length) {
+    res.sendStatus(404);
+    return;
+  }
+
+  STARRED_RESTAURANTS = starredRestaurant;
+  res.sendStatus(204);
+});  
 
 /**
  * Feature 10: Updating your comment of a starred restaurant.
