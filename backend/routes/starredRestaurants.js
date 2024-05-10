@@ -68,7 +68,23 @@ router.get("/:id", (req, res) => {
 /**
  * Feature 8: Adding to your list of starred restaurants.
  */
+router.post("/", (req, res) => {
+  const { body } = req;
+  const { restaurantId, comment } = body;
 
+  // Generate a unique ID for the new starred restaurant.
+  const newId = uuidv4();
+  const newStarredRestaurant = {
+    id: newId,
+    restaurantId,
+    comment,
+  };
+
+  // Add the new starred restaurant to the list of starred restaurants.
+  STARRED_RESTAURANTS.push(newStarredRestaurant);
+
+  res.json(newStarredRestaurant);
+});  
 
 
 /**
